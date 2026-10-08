@@ -1,0 +1,7 @@
+/target
+/backup_rust/target
+build/
+*.o
+mdreader
+compile_commands.json
+.cache/

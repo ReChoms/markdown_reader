@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Markdown Reader
+Comment=Fast, lightweight Markdown reader
+Exec=/home/siu/.local/bin/mdreader %f
+Terminal=false
+MimeType=text/markdown;text/x-markdown;
+Categories=Utility;Viewer;
+Icon=text-markdown
+StartupNotify=true

@@ -1,0 +1,7 @@
+CompileFlags:
+  Add:
+    - -std=c++20
+    - -Isrc
+    - -Ivendor/md4c
+    - -Wall
+    - -Wextra
