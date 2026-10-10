@@ -69,6 +69,30 @@ std::string wrap_html_document(const std::string& body_html, const std::string& 
             width: 100%;
             max-width: 860px;
         }
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.25;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        h1 { font-size: 2.0rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
+        h2 { font-size: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
+        h3 { font-size: 1.25rem; }
+        h4 { font-size: 1.15rem; }
+        h5 { font-size: 1.08rem; }
+        h6 { font-size: 1.02rem; }
+        .markdown-body { counter-reset: h1; }
+        .markdown-body h1 { counter-reset: h2; }
+        .markdown-body h2 { counter-reset: h3; }
+        .markdown-body h3 { counter-reset: h4; }
+        .markdown-body h4 { counter-reset: h5; }
+        .markdown-body h5 { counter-reset: h6; }
+        .markdown-body h1::before { counter-increment: h1; content: counter(h1) ". "; }
+        .markdown-body h2::before { counter-increment: h2; content: counter(h1) "." counter(h2) " "; }
+        .markdown-body h3::before { counter-increment: h3; content: counter(h1) "." counter(h2) "." counter(h3) " "; }
+        .markdown-body h4::before { counter-increment: h4; content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) " "; }
+        .markdown-body h5::before { counter-increment: h5; content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) " "; }
+        .markdown-body h6::before { counter-increment: h6; content: counter(h1) "." counter(h2) "." counter(h3) "." counter(h4) "." counter(h5) "." counter(h6) " "; }
         pre {
             background-color: var(--code-bg);
             padding: 1rem;
@@ -129,6 +153,27 @@ std::string wrap_html_document(const std::string& body_html, const std::string& 
         .mermaid svg { max-width: 100%; height: auto; }
         .mermaid.expanded { justify-content: flex-start; cursor: zoom-out; }
         .mermaid.expanded svg { max-width: none; }
+        #search-bar {
+            display: none;
+            position: fixed;
+            bottom: 1.25rem;
+            right: 1.25rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.35rem 0.65rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+        }
+        #search-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 14px;
+            width: 180px;
+        }
     )css";
 
     // 2. Client-side JS to render KaTeX equations and Mermaid diagrams
@@ -222,9 +267,30 @@ std::string wrap_html_document(const std::string& body_html, const std::string& 
         });
 
         // Neovim navigation keybindings
-        let lastGTime = 0;
+        let lastGTime = 0, lastQuery = "";
+        const sBar = document.createElement("div");
+        sBar.id = "search-bar";
+        sBar.innerHTML = '<input id="search-input" placeholder="Search... (Enter/Esc)">';
+        document.body.appendChild(sBar);
+        const sInput = sBar.firstElementChild;
+        sInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" && (lastQuery = sInput.value)) {
+                window.find(lastQuery, false, e.shiftKey, true);
+            } else if (e.key === "Escape") {
+                sBar.style.display = "none";
+            }
+        });
         window.addEventListener("keydown", (e) => {
-            if (e.altKey || e.metaKey) return;
+            if (e.target === sInput || e.altKey || e.metaKey) return;
+            if (e.key === "/" || (e.ctrlKey && e.key === "f")) {
+                e.preventDefault();
+                sBar.style.display = "flex";
+                sInput.focus(); sInput.select();
+                return;
+            }
+            if (e.key === "n" && lastQuery) { window.find(lastQuery, false, false, true); return; }
+            if (e.key === "N" && lastQuery) { window.find(lastQuery, false, true, true); return; }
+            if (e.key === "Escape") { sBar.style.display = "none"; return; }
             const step = 60, half = window.innerHeight / 2;
             if (e.key === "g" && !e.ctrlKey) {
                 const now = Date.now();

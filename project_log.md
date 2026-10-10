@@ -236,3 +236,15 @@ A running chronological log of milestones, decisions, and development progress.
 - **Why**: Completes Milestone 7 with high-contrast, keyboard-accessible diagrams that expand to unconstrained horizontal scrolling.
 - **Learned**: Assigning `tabIndex = 0` and preventing default spacebar scroll enables accessible element interaction alongside Vim shortcuts.
 - **Open questions**: None; all 7 milestones are complete.
+
+## Session: Milestone 8 Scope & Search Architecture
+- **Changed**: Outlined Milestone 8 for bold headings, auto-numbering, and DOM search.
+- **Why**: Resolves three reader flaws and selects the zero-chrome DOM overlay design.
+- **Learned**: WebKit's window.find() provides native C++ text matching without mutating DOM nodes.
+- **Next**: Step 8.1 heading typography in src/render.cpp.
+
+## Session: Milestone 8 Completion (Headings, Auto-Numbering & Search)
+- **Changed**: Added bold typography for `h1`–`h6`, CSS hierarchical counters, and in-page DOM search overlay (`/`, `n`, `N`, `Esc`).
+- **Why**: Completes Milestone 8, resolving small headings, missing auto-numbering, and lack of text search.
+- **Learned**: CSS counters hierarchically number headings without mutating AST; `window.find()` provides native search speed.
+- **Open questions**: None; all 8 milestones are complete.

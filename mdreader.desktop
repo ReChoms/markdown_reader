@@ -6,5 +6,5 @@ Exec=/home/siu/.local/bin/mdreader %f
 Terminal=false
 MimeType=text/markdown;text/x-markdown;
 Categories=Utility;Viewer;
-Icon=text-markdown
+Icon=mdreader
 StartupNotify=true

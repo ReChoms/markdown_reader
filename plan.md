@@ -62,3 +62,12 @@ A checklist of micro-steps across each milestone. Every step is implemented in v
 - [x] **Step 7.2**: Improve Mermaid color readability and dark/light contrast via `themeVariables` and CSS overrides.
 - [x] **Step 7.3**: Add click-to-toggle between fit-to-width and 100% natural scale on `.mermaid` containers.
 - [x] **Step 7.4**: Verify rendering with `make -s mdreader` and test visual diagrams.
+
+---
+
+## Milestone 8: Heading Typography, Auto-Numbering & DOM Search Overlay
+- [x] **Step 8.1**: Style headings `h1`–`h6` with bold weight and progressive font scaling in `src/render.cpp`.
+- [x] **Step 8.2**: Add CSS counters in `src/render.cpp` for hierarchical heading numbering (`1.`, `1.1`, ...).
+- [x] **Step 8.3**: Add search input overlay markup and styles in `src/render.cpp`.
+- [x] **Step 8.4**: Implement search cycling (`/`, `n`, `N`, `Esc`) via native `window.find()` in `src/render.cpp`.
+- [x] **Step 8.5**: Verify heading typography, numbering, and search with `make -s mdreader` against `test.md`.

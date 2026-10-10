@@ -42,6 +42,8 @@ struct NativeWindow::Impl {
 NativeWindow::NativeWindow(int width, int height)
     : pimpl_(new Impl()) {
     // 1. Handshake with the Linux display server (Wayland or X11)
+    g_set_prgname("mdreader");
+    g_set_application_name("Markdown Reader");
     gtk_init();
 
     // 2. Create the outer OS window frame and set initial size and default title

@@ -26,3 +26,8 @@ graph LR;
     A[CLI / Pipe] --> B[Input Layer] --> C[md4c Parser] --> D[HTML Wrapper] --> E[WebKitGTK 6.0] --> F[Live Reload] --> G[State];
 ```
 
+## Architecture Hierarchy
+### Formula Verification
+#### Subcomponent Details
+##### Implementation Notes
+###### Platform Support

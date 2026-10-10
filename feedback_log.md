@@ -19,3 +19,9 @@ Structured record of quality complaints and prompt fixes.
 - **Root Cause:** In a single turn, performed 9 separate file modifications across `vendor/`, `src/render.hpp`, `src/render.cpp`, `.clangd`, `Makefile`, `src/main.cpp`, `test.md`, and `plan.md` without pausing, explaining each one individually, or getting user confirmation between steps.
 - **Resolution:** Strictly enforce single-action, bite-sized steps: present only one file or small change at a time, explain it, and wait for explicit user approval before moving to the next.
 
+## 2026-10-10
+- **Node:** Agent Behavior / Build Turn Efficiency
+- **Complaint:** "okay whyt do you rebuilt or use make when we updat ethe log? ... i want to change that, make is okay after changign code but nwo aftewr changign log files"
+- **Root Cause:** Executed the check command after editing markdown plan/log files even though non-code edits cannot break C++ compilation.
+- **Resolution:** Updated `.agents/rules/core.md:35` to explicitly skip the check command for documentation and log edits, saving turns while keeping builds mandatory for code edits.
+
